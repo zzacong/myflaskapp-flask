@@ -5,6 +5,10 @@
 <div class="jumbotron text-center">
   <h1 class="display-4">Welcome to FlaskApp</h1>
   <p class="lead">This application is built on the Python Flask framework.</p>
+  {% if session.logged_in == NULL %}
+  <a href="/login" class="btn btn-success mr-2">Login</a>
+  <a href="/register" class="btn btn-outline-primary">Register</a>
+  {% endif %}
 </div>
 
 {% endblock %}
