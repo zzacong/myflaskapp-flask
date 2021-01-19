@@ -2,6 +2,8 @@
 
 {% block body %}
 
-<h1>Dashboard <small> Welcome {{ session.username }}</small></h1>
+<h1 class="mb-4">Dashboard <small> Welcome {{ session.username }}</small></h1>
+<a href="/add_article" class="btn btn-success">Add article</a>
+<hr>
 
 {% endblock %}

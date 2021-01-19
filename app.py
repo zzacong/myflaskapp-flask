@@ -1,5 +1,6 @@
 from flask import Flask, render_template, flash, redirect, url_for, session, logging, request
 from flask_mysqldb import MySQL
+from functools import wraps
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import argon2
 from data import Articles
@@ -96,10 +97,10 @@ def login():
             # Compare passwords
             if argon2.verify(password_candidate, password_hash):
                 app.logger.info('PASSWORD MATCHED')
-                session['logged in'] = True
+                session['logged_in'] = True
                 session['username'] = username
 
-                flash('You are now logegd in', 'success')
+                flash('You are now logged in', 'success')
                 return redirect(url_for('dashboard'))
             else:
                 app.logger.info('INVALID PASSWORD')
@@ -113,8 +114,26 @@ def login():
             return render_template('login.html', error=error)
     return render_template('login.html')
 
+# ! Logout
+@app.route('/logout')
+def logout():
+    session.clear()
+    flash('You are now logged out', 'success')
+    return redirect(url_for('login'))
+
+# ! Check if user logged in
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'logged_in' not in session:
+            flash('Unauthorised. Please login', 'danger')
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
 # ! Dashboard
 @app.route('/dashboard')
+@login_required
 def dashboard():
     return render_template('dashboard.html')
 
