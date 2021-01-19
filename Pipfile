@@ -5,9 +5,14 @@ name = "pypi"
 
 [packages]
 flask = "*"
-autopep8 = "*"
+flask-mysqldb = "*"
+flask-wtf = "*"
+passlib = "*"
+argon2-cffi = "*"
 
 [dev-packages]
+pylint = "*"
+autopep8 = "*"
 
 [requires]
 python_version = "3.9"
