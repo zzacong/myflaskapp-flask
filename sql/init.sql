@@ -4,7 +4,7 @@ CREATE DATABASE `myflaskapp`;
 
 USE `myflaskapp`;
 
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `users`, `articles`;
 
 CREATE TABLE `users` (
   `id` SERIAL,
@@ -13,5 +13,14 @@ CREATE TABLE `users` (
   `username` VARCHAR(30),
   `password` VARCHAR(100),
   `register_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `articles` (
+  `id` SERIAL,
+  `title` VARCHAR(255),
+  `author` VARCHAR(255),
+  `body` TEXT,
+  `create_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 );
