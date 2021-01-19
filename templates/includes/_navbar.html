@@ -17,6 +17,7 @@
       </li>
     </ul>
     {% if session.logged_in %}
+    <a href="/dashboard" class="nav-link text-info">Dashboard</a>
     <a href="/logout" class="nav-link btn btn-outline-primary">Logout</a>
     {% else %}
     <a href="/login" class="nav-link btn btn-primary mr-2">Login</a>
