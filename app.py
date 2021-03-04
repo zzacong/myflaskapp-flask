@@ -61,12 +61,14 @@ def articles():
     articles = cur.fetchall()
 
     if result > 0:
+        # Close connection
+        cur.close()
         return render_template('articles.html', articles=articles)
     else:
         msg = 'No articles found.'
+        # Close connection
+        cur.close()
         return render_template('articles.html', msg=msg)
-    # Close connection
-    cur.close()
 
 
 # ! Single Article
@@ -75,7 +77,7 @@ def article(id):
     # Create cursor
     cur = mysql.connection.cursor()
     # Get one article
-    result = cur.execute("SELECT * FROM articles WHERE id = %s", [id])
+    cur.execute("SELECT * FROM articles WHERE id = %s", [id])
     article = cur.fetchone()
 
     return render_template('article.html', article=article)
