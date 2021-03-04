@@ -131,13 +131,15 @@ def login():
                 session['username'] = username
 
                 flash('You are now logged in', 'success')
+                # Close connection
+                cur.close()
                 return redirect(url_for('dashboard'))
             else:
                 app.logger.info('INVALID PASSWORD')
                 error = 'Invalid password.'
+                # Close connection
+                cur.close()
                 return render_template('login.html', error=error)
-            # Close connection
-            cur.close()
         else:
             app.logger.info('USERNAME NOT FOUND')
             error = 'Username not found.'
